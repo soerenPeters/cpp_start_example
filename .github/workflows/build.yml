@@ -1,0 +1,47 @@
+name: build
+
+on: [push, pull_request]
+
+jobs:
+  build_linux:
+    runs-on: ubuntu-20.04
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: configure
+        run: mkdir build && cd build && cmake .. -DBUILD_WARNINGS_AS_ERRORS=ON
+
+      - name: build
+        run: cmake --build build --config Debug
+
+      - name: unit-tests
+        run: cd build && ctest
+
+  build_macos:
+    runs-on: macos-11.0
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: configure
+        run: mkdir build && cd build && cmake .. -DBUILD_WARNINGS_AS_ERRORS=ON
+
+      - name: build
+        run: cmake --build build --config Debug
+
+      - name: unit-tests
+        run: cd build && ctest
+
+  build_windows:
+    runs-on: windows-2019
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: configure
+        run: mkdir build && cd build && cmake .. -DBUILD_WARNINGS_AS_ERRORS=ON
+      - name: build
+        run: cmake --build build --config Debug
+      - name: test
+        run: cd build && ctest -C Debug
