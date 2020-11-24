@@ -1,10 +1,12 @@
 cmake_minimum_required(VERSION 3.17)
+
 project(cpp_start_example)
 
 set(CMAKE_CXX_STANDARD 17)
 
-# cpp_start
-# fetching
+########################################################################
+#                            cpp_start                                 #
+########################################################################
 include(FetchContent)
 FetchContent_Declare(
         cpp_start
@@ -14,6 +16,6 @@ FetchContent_Declare(
 FetchContent_Populate(cpp_start)
 
 include(${CMAKE_BINARY_DIR}/_deps/cpp_start-src/CMake/cpp_starter.cmake)
-
+########################################################################
 
 add_subdirectory(src/adder)
